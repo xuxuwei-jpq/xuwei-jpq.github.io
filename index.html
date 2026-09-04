@@ -1,0 +1,2325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>许旭威 · 个人简历 · 科幻风</title>
+    <style>
+        /* ===== CSS Variables & Reset ===== */
+        :root {
+            --primary: #00d4ff;
+            --primary-glow: rgba(0, 212, 255, 0.35);
+            --secondary: #7c3aed;
+            --secondary-glow: rgba(124, 58, 237, 0.35);
+            --accent: #ec4899;
+            --accent-glow: rgba(236, 72, 153, 0.30);
+            --bg-deep: #080c1a;
+            --bg-surface: rgba(16, 24, 48, 0.65);
+            --bg-card: rgba(22, 32, 64, 0.70);
+            --text-primary: #e8edff;
+            --text-secondary: #9aa8d6;
+            --text-muted: #6a7aaa;
+            --border-glow: rgba(0, 212, 255, 0.20);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+            --font-mono: "SF Mono", "Fira Code", monospace;
+            --max-width: 1160px;
+            --nav-height: 64px;
+            --shadow-glow: 0 8px 40px rgba(0, 212, 255, 0.08);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: var(--nav-height);
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at 20% 30%, rgba(0, 212, 255, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, rgba(124, 58, 237, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 100%, rgba(236, 72, 153, 0.04) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+        a:hover {
+            color: var(--accent);
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+            box-shadow: 0 0 16px var(--primary-glow);
+        }
+
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            z-index: 1000;
+            background: rgba(8, 12, 26, 0.78);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-bottom: 1px solid var(--border-glow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            transition: border-color 0.3s ease;
+        }
+        .navbar:hover {
+            border-bottom-color: rgba(0, 212, 255, 0.35);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .navbar-brand .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 20px var(--primary-glow);
+            flex-shrink: 0;
+            animation: pulse-dot 2.4s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.85);
+            }
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        .navbar-links a {
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.25s ease;
+            position: relative;
+            letter-spacing: 0.02em;
+        }
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 4px;
+        }
+        .navbar-links a:hover::after,
+        .navbar-links a.active::after {
+            width: 60%;
+        }
+        .navbar-links a:hover {
+            color: var(--text-primary);
+            background: rgba(0, 212, 255, 0.06);
+        }
+        .navbar-links a.active {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.08);
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .navbar-actions button {
+            background: transparent;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            transition: all 0.25s ease;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid transparent;
+        }
+        .navbar-actions button:hover {
+            background: rgba(0, 212, 255, 0.10);
+            color: var(--primary);
+            border-color: var(--border-glow);
+            box-shadow: 0 0 24px var(--primary-glow);
+        }
+        .navbar-actions button:active {
+            transform: scale(0.92);
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px 48px;
+        }
+
+        /* ===== Section ===== */
+        .section {
+            margin-top: 52px;
+            animation: fadeUp 0.6s ease both;
+        }
+        .section:first-of-type {
+            margin-top: 28px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 26px;
+        }
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--text-primary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+        .section-header .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-glow), transparent);
+        }
+        .section-header .badge-count {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            box-shadow: 0 0 24px var(--primary-glow);
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 36px;
+            padding: 28px 0 8px;
+            align-items: start;
+        }
+        .hero-main h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff 30%, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-main .subhead {
+            font-size: 1.08rem;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            max-width: 540px;
+        }
+        .hero-main .subhead .highlight {
+            color: var(--primary);
+            font-weight: 600;
+            -webkit-text-fill-color: var(--primary);
+        }
+        .hero-main .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 24px;
+            margin-top: 14px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .hero-main .contact-row a {
+            color: var(--text-secondary);
+            transition: color 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .hero-main .contact-row a:hover {
+            color: var(--primary);
+        }
+        .hero-main .contact-row .copy-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 4px;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+        .hero-main .contact-row .copy-btn:hover {
+            color: var(--primary);
+            border-color: var(--border-glow);
+            background: rgba(0, 212, 255, 0.06);
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .hero-tags .tag {
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid var(--border-glow);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            letter-spacing: 0.02em;
+            backdrop-filter: blur(4px);
+        }
+        .hero-tags .tag:hover {
+            border-color: var(--primary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 24px var(--primary-glow);
+            background: rgba(0, 212, 255, 0.10);
+        }
+        .hero-tags .tag.highlight {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 0 32px var(--primary-glow);
+        }
+        .hero-tags .tag.highlight:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 48px var(--primary-glow);
+        }
+
+        .hero-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 0 60px var(--primary-glow), 0 0 120px rgba(124, 58, 237, 0.15);
+            user-select: none;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            animation: float-avatar 5s ease-in-out infinite;
+        }
+        @keyframes float-avatar {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .hero-avatar {
+                width: 72px;
+                height: 72px;
+                font-size: 2rem;
+                justify-self: start;
+            }
+            .hero-main h1 {
+                font-size: 2.2rem;
+            }
+            .navbar-links a {
+                padding: 4px 10px;
+                font-size: 0.72rem;
+            }
+        }
+
+        /* ===== Highlights ===== */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+        }
+        .highlight-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            padding: 18px 16px;
+            border: 1px solid var(--border-glow);
+            transition: all 0.35s ease;
+            text-align: center;
+            backdrop-filter: blur(4px);
+        }
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 40px var(--primary-glow), inset 0 0 40px rgba(0, 212, 255, 0.02);
+            border-color: var(--primary);
+        }
+        .highlight-card .number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        .highlight-card .label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* ===== Tabs ===== */
+        .tabs-wrapper {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-glow);
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        .tabs-wrapper:hover {
+            border-color: rgba(0, 212, 255, 0.30);
+        }
+
+        .tabs-header {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--border-glow);
+            background: rgba(8, 12, 26, 0.40);
+            overflow-x: auto;
+            padding: 0 8px;
+            scrollbar-width: none;
+        }
+        .tabs-header::-webkit-scrollbar {
+            display: none;
+        }
+        .tabs-header button {
+            flex: 0 0 auto;
+            padding: 14px 22px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-family: var(--font-sans);
+            position: relative;
+        }
+        .tabs-header button:hover {
+            color: var(--text-primary);
+            background: rgba(0, 212, 255, 0.04);
+        }
+        .tabs-header button[aria-selected="true"] {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            box-shadow: 0 4px 32px rgba(0, 212, 255, 0.06);
+        }
+        .tabs-header button .tab-badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            margin-left: 6px;
+            padding: 0 8px;
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+        }
+        .tabs-header button[aria-selected="true"] .tab-badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .tabs-panel {
+            padding: 24px 28px;
+            display: none;
+            animation: fadeUp 0.35s ease both;
+        }
+        .tabs-panel[aria-hidden="false"] {
+            display: block;
+        }
+
+        /* ===== Experience items ===== */
+        .exp-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 16px 24px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .exp-item:last-child {
+            border-bottom: none;
+        }
+        .exp-item .exp-date {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            padding-top: 2px;
+        }
+        .exp-item .exp-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        .exp-item .exp-org {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+        .exp-item .exp-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            list-style: none;
+            padding-left: 0;
+        }
+        .exp-item .exp-desc li {
+            position: relative;
+            padding-left: 18px;
+            margin-top: 2px;
+        }
+        .exp-item .exp-desc li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+            .exp-item {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+            .exp-item .exp-date {
+                font-size: 0.72rem;
+            }
+            .tabs-panel {
+                padding: 16px;
+            }
+        }
+
+        /* ===== Project Cards ===== */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-sm);
+            padding: 20px 22px;
+            transition: all 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(4px);
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px var(--primary-glow), inset 0 0 40px rgba(0, 212, 255, 0.02);
+            border-color: var(--primary);
+        }
+        .project-card .proj-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+        }
+        .project-card .proj-title .emoji {
+            font-size: 1.2rem;
+        }
+        .project-card .proj-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 8px;
+            margin: 8px 0 10px;
+        }
+        .project-card .proj-stack span {
+            font-size: 0.65rem;
+            font-weight: 500;
+            padding: 2px 12px;
+            border-radius: 40px;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid var(--border-glow);
+            color: var(--text-secondary);
+        }
+        .project-card .proj-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            flex: 1;
+        }
+        .project-card .proj-desc ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 4px;
+        }
+        .project-card .proj-desc ul li {
+            position: relative;
+            padding-left: 16px;
+            margin-top: 2px;
+            font-size: 0.84rem;
+        }
+        .project-card .proj-desc ul li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .project-card .proj-meta {
+            margin-top: 12px;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+        }
+        .project-card .proj-meta .tag-result {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 0 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.65rem;
+            display: inline-flex;
+            align-items: center;
+            height: 24px;
+            box-shadow: 0 0 24px var(--primary-glow);
+        }
+
+        /* ===== Skills ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 16px;
+        }
+        .skill-group {
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glow);
+            padding: 16px 18px;
+            transition: all 0.35s ease;
+            backdrop-filter: blur(4px);
+        }
+        .skill-group:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 32px var(--primary-glow);
+        }
+        .skill-group .sg-title {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        /* (legacy .sg-items / .skill-tag 已替换为进度条样式，见下方 Dynamic 区段) */
+
+        /* ===== Education & Awards ===== */
+        .edu-awards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        @media (max-width: 720px) {
+            .edu-awards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .edu-block {
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glow);
+            padding: 20px 24px;
+            backdrop-filter: blur(4px);
+            transition: border-color 0.3s ease;
+        }
+        .edu-block:hover {
+            border-color: var(--primary);
+        }
+        .edu-block .edu-school {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+        .edu-block .edu-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .edu-block .edu-detail {
+            font-size: 0.9rem;
+            margin-top: 8px;
+            color: var(--text-secondary);
+        }
+        .edu-block .edu-detail strong {
+            color: var(--text-primary);
+        }
+        .edu-block .edu-courses {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 8px;
+            margin-top: 8px;
+        }
+        .edu-block .edu-courses span {
+            font-size: 0.72rem;
+            padding: 2px 12px;
+            border-radius: 40px;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid var(--border-glow);
+            color: var(--text-secondary);
+        }
+
+        .awards-list {
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glow);
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            backdrop-filter: blur(4px);
+            transition: border-color 0.3s ease;
+        }
+        .awards-list:hover {
+            border-color: var(--primary);
+        }
+        .awards-list .award-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.88rem;
+            flex-wrap: wrap;
+            gap: 4px 8px;
+        }
+        .awards-list .award-item:last-child {
+            border-bottom: none;
+        }
+        .awards-list .award-item .award-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .awards-list .award-item .award-year {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .awards-list .award-item .award-desc {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: block;
+            width: 100%;
+        }
+
+        /* ===== Certificates (新增) ===== */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 820px) {
+            .cert-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 520px) {
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cert-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glow);
+            padding: 20px 18px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(0, 212, 255, 0.03), transparent, rgba(124, 58, 237, 0.03), transparent);
+            animation: rotate-glow 12s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes rotate-glow {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .cert-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: var(--primary);
+            box-shadow: 0 12px 48px var(--primary-glow), inset 0 0 60px rgba(0, 212, 255, 0.02);
+        }
+        .cert-card .cert-icon {
+            font-size: 2rem;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 1;
+        }
+        .cert-card .cert-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 1;
+            line-height: 1.3;
+        }
+        .cert-card .cert-org {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            position: relative;
+            z-index: 1;
+        }
+        .cert-card .cert-meta {
+            margin-top: 10px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        .cert-card .cert-badge {
+            display: inline-block;
+            padding: 1px 12px;
+            border-radius: 40px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+        .cert-card .cert-level {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Interests ===== */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 4px;
+        }
+        .interests-grid .interest-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-glow);
+            padding: 14px 18px;
+            font-size: 0.88rem;
+            transition: all 0.35s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(4px);
+        }
+        .interests-grid .interest-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 32px var(--primary-glow);
+            background: rgba(0, 212, 255, 0.04);
+        }
+        .interests-grid .interest-item .icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            margin-top: 56px;
+            padding: 24px 0 12px;
+            border-top: 1px solid var(--border-glow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+        .footer .update {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ===== Back to top ===== */
+        .back-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 4px 32px var(--primary-glow);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(16px);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            backdrop-filter: blur(8px);
+        }
+        .back-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .back-top:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            border-color: transparent;
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 0 48px var(--primary-glow);
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Print ===== */
+        @media print {
+            body {
+                padding-top: 0;
+                background: #0a0e1a !important;
+                color: #e8edff !important;
+            }
+            .navbar,
+            .back-top,
+            .navbar-actions button {
+                display: none !important;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0 20px 20px;
+            }
+            .section {
+                margin-top: 20px;
+                page-break-inside: avoid;
+            }
+            .hero-avatar {
+                box-shadow: none;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+            }
+            .project-card,
+            .skill-group,
+            .edu-block,
+            .awards-list,
+            .tabs-wrapper,
+            .highlight-card,
+            .interests-grid .interest-item,
+            .cert-card {
+                border-color: rgba(255, 255, 255, 0.10) !important;
+                box-shadow: none !important;
+                background: rgba(16, 24, 48, 0.50) !important;
+                transform: none !important;
+            }
+            .tabs-panel {
+                display: block !important;
+                padding: 12px 16px !important;
+            }
+            .tabs-header {
+                display: none !important;
+            }
+            .tabs-wrapper {
+                border: 1px solid rgba(255, 255, 255, 0.10);
+            }
+            .project-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .highlights-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .cert-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-main h1 {
+                -webkit-text-fill-color: #fff;
+                background: none;
+                color: #fff;
+            }
+            .edu-awards-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer {
+                border-top-color: rgba(255, 255, 255, 0.08);
+            }
+            a {
+                color: var(--primary) !important;
+            }
+            .project-card .proj-meta .tag-result {
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                color: #fff;
+            }
+            .hero-tags .tag.highlight {
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                color: #fff;
+                border-color: transparent;
+            }
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+            .cert-card::before {
+                display: none;
+            }
+        }
+
+        /* ===== Reduced motion ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+            .hero-avatar {
+                animation: none;
+            }
+            .cert-card::before {
+                display: none;
+            }
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .flex-wrap {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .items-center {
+            align-items: center;
+        }
+        .gap-4 {
+            gap: 4px;
+        }
+
+        /* 小型设备适配 */
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0 14px;
+            }
+            .navbar-links a {
+                padding: 4px 8px;
+                font-size: 0.68rem;
+            }
+            .container {
+                padding: 0 14px 32px;
+            }
+            .hero-main h1 {
+                font-size: 1.8rem;
+            }
+            .section-header h2 {
+                font-size: 1.2rem;
+            }
+            .cert-card .cert-name {
+                font-size: 0.82rem;
+            }
+        }
+
+        /* ===== Dynamic: Clock in navbar ===== */
+        .nav-clock {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid var(--border-glow);
+            border-radius: 40px;
+            margin-right: 4px;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+        .nav-clock:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 16px var(--primary-glow);
+        }
+        @media (max-width: 760px) {
+            .nav-clock { display: none; }
+        }
+
+        /* ===== Dynamic: Skill progress bars ===== */
+        .skill-group .skill-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .skill-group .skill-item .skill-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            margin-bottom: 4px;
+            color: var(--text-secondary);
+        }
+        .skill-group .skill-item .skill-name {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        .skill-group .skill-item .skill-level {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .skill-group .skill-item .skill-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 40px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .skill-group .skill-item .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 40px;
+            width: 0;
+            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 0 16px var(--primary-glow);
+        }
+
+        /* ===== Dynamic: Project search + chips ===== */
+        .proj-filter-wrapper {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(8, 12, 26, 0.6);
+            border: 1px solid var(--border-glow);
+            border-radius: 40px;
+            padding: 8px 18px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-family: var(--font-sans);
+            transition: all 0.25s ease;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 24px var(--primary-glow);
+        }
+        .search-input::placeholder { color: var(--text-muted); }
+        .chips {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .chip {
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.72rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: var(--font-sans);
+        }
+        .chip:hover {
+            border-color: var(--primary);
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+        .chip.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 0 24px var(--primary-glow);
+        }
+        .proj-no-result {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-sm);
+        }
+
+        /* ===== Dynamic: Visit stats ===== */
+        .visit-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 32px;
+            padding: 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-sm);
+            backdrop-filter: blur(4px);
+        }
+        .visit-stats .stat-item {
+            text-align: center;
+        }
+        .visit-stats .stat-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        .visit-stats .stat-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ===== Dynamic: Countdown ===== */
+        .countdown {
+            text-align: center;
+            padding: 28px 18px;
+            margin-top: 24px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(124, 58, 237, 0.08));
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-sm);
+            backdrop-filter: blur(4px);
+        }
+        .countdown .cd-label {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            margin-bottom: 10px;
+            letter-spacing: 0.02em;
+        }
+        .countdown .cd-days {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            text-shadow: 0 0 60px var(--primary-glow);
+        }
+        .countdown .cd-unit {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin: 0 8px 0 4px;
+        }
+        .countdown .cd-target {
+            margin-top: 12px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== Print: hide non-paper dynamic elements ===== */
+        @media print {
+            .nav-clock,
+            .visit-stats,
+            .countdown,
+            .proj-filter-wrapper,
+            .proj-no-result {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== Navigation ===== -->
+    <nav class="navbar" role="navigation" aria-label="主导航">
+        <div class="navbar-brand">
+            <span class="dot"></span>
+            许旭威
+        </div>
+        <ul class="navbar-links" role="list">
+            <li><a href="#hero" data-nav>首页</a></li>
+            <li><a href="#highlights" data-nav>亮点</a></li>
+            <li><a href="#experiences" data-nav>经历</a></li>
+            <li><a href="#projects" data-nav>项目</a></li>
+            <li><a href="#skills" data-nav>技能</a></li>
+            <li><a href="#edu-cert" data-nav>教育·认证</a></li>
+            <li><a href="#interests" data-nav>兴趣</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <span class="nav-clock" id="navClock" title="当前时间">--:--:--</span>
+            <button id="themeToggle" aria-label="切换深色/浅色模式" title="切换主题">
+                <span id="themeIcon">🌙</span>
+            </button>
+            <button id="printBtn" aria-label="打印简历" title="打印 / PDF">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== Main Container ===== -->
+    <main class="container">
+
+        <!-- ===== HERO ===== -->
+        <section id="hero" class="section" style="margin-top:0;">
+            <div class="hero">
+                <div class="hero-main">
+                    <h1>许旭威</h1>
+                    <p class="subhead">
+                        <span class="highlight">浙江工业大学</span> · 数据科学与大数据技术（准大一）<br />
+                        热爱嵌入式、Python 与硬件设计，用技术解决实际问题。
+                    </p>
+                    <div class="contact-row" id="contactRow"></div>
+                    <div class="hero-tags" id="heroTags"></div>
+                </div>
+                <div class="hero-avatar">许</div>
+            </div>
+        </section>
+
+        <!-- ===== HIGHLIGHTS ===== -->
+        <section id="highlights" class="section">
+            <div class="section-header">
+                <h2>亮点成果</h2>
+                <span class="line"></span>
+            </div>
+            <div class="highlights-grid" id="highlightsGrid"></div>
+        </section>
+
+        <!-- ===== EXPERIENCES ===== -->
+        <section id="experiences" class="section">
+            <div class="section-header">
+                <h2>经历</h2>
+                <span class="line"></span>
+            </div>
+            <div class="tabs-wrapper" id="expTabs">
+                <div class="tabs-header" role="tablist" id="expTabList"></div>
+                <div id="expPanels"></div>
+            </div>
+        </section>
+
+        <!-- ===== PROJECTS ===== -->
+        <section id="projects" class="section">
+            <div class="section-header">
+                <h2>项目</h2>
+                <span class="line"></span>
+            </div>
+            <div class="proj-filter-wrapper">
+                <input class="search-input" id="projSearch" placeholder="🔍 搜索项目标题 / 技术栈 / 描述..." />
+                <div class="chips" id="projChips"></div>
+            </div>
+            <div class="tabs-wrapper" id="projTabs">
+                <div class="tabs-header" role="tablist" id="projTabList"></div>
+                <div id="projPanels"></div>
+            </div>
+            <div class="proj-no-result" id="projNoResult">😕 没有匹配的项目</div>
+        </section>
+
+        <!-- ===== SKILLS ===== -->
+        <section id="skills" class="section">
+            <div class="section-header">
+                <h2>技能矩阵</h2>
+                <span class="line"></span>
+            </div>
+            <div class="skills-grid" id="skillsGrid"></div>
+        </section>
+
+        <!-- ===== EDUCATION + CERTIFICATES + AWARDS ===== -->
+        <section id="edu-cert" class="section">
+            <div class="section-header">
+                <h2>教育 · 认证</h2>
+                <span class="line"></span>
+                <span class="badge-count">4 项认证</span>
+            </div>
+
+            <!-- 教育 + 奖项（两栏） -->
+            <div class="edu-awards-grid">
+                <div class="edu-block" id="eduBlock"></div>
+                <div class="awards-list" id="awardsList"></div>
+            </div>
+
+            <!-- 证书（3列网格） -->
+            <div style="margin-top:28px;">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                    <span style="font-weight:600;font-size:0.9rem;color:var(--text-secondary);letter-spacing:0.04em;">📜 认证证书</span>
+                    <span style="flex:1;height:1px;background:linear-gradient(90deg,var(--border-glow),transparent);"></span>
+                </div>
+                <div class="cert-grid" id="certGrid"></div>
+            </div>
+
+            <!-- 入学倒计时 -->
+            <div class="countdown" id="countdown"></div>
+        </section>
+
+        <!-- ===== INTERESTS ===== -->
+        <section id="interests" class="section">
+            <div class="section-header">
+                <h2>兴趣与特质</h2>
+                <span class="line"></span>
+            </div>
+            <div class="interests-grid" id="interestsGrid"></div>
+        </section>
+
+        <!-- ===== Visit Stats ===== -->
+        <div class="visit-stats" id="visitStats"></div>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <span>© 2026 许旭威 · 简历</span>
+            <span class="update">📅 更新于 2026 年 8 月</span>
+        </footer>
+    </main>
+
+    <!-- ===== Back to Top ===== -->
+    <button class="back-top" id="backTop" aria-label="返回顶部">↑</button>
+
+    <script>
+        /* ============================================================
+           DATA
+           ============================================================ */
+        const resume = {
+            name: '许旭威',
+            contact: {
+                phone: '19859555663',
+                email: '1147294396@qq.com',
+                github: '',
+                blog: ''
+            },
+            heroTags: [
+                'Python / C',
+                '嵌入式 · 单片机',
+                '电路设计',
+                '数据分析',
+                '物理竞赛',
+                '自驱学习者'
+            ],
+            highlights: [
+                { number: '3', label: '完整项目落地' },
+                { number: '50+', label: '社区志愿者管理' },
+                { number: '10+', label: '课堂演示应用' },
+                { number: '83%', label: '效率提升' },
+                { number: '前5%', label: '年级综合排名' }
+            ],
+            experiences: {
+                education: [{
+                    title: '高中教育',
+                    org: '泉州第一中学',
+                    date: '2020 – 2023',
+                    desc: [
+                        '综合评定年级前 5%，获优秀毕业生称号',
+                        '自学高等数学、大学物理、电子电路与编程'
+                    ]
+                }],
+                campus: [{
+                    title: '班级物理专题分享',
+                    org: '泉州第一中学',
+                    date: '2022 – 2023',
+                    desc: [
+                        '主讲力学、电磁学专题，累计分享 6 次',
+                        '帮助同学理解抽象概念，获老师推荐'
+                    ]
+                }, {
+                    title: '校足球队主力中场',
+                    org: '校运会足球赛',
+                    date: '2022',
+                    desc: [
+                        '获团体亚军，担任中场组织核心',
+                        '锻炼团队协作与抗压能力'
+                    ]
+                }, {
+                    title: '科技节优秀展示项目',
+                    org: '智能温控风扇系统',
+                    date: '2023',
+                    desc: [
+                        '独立完成硬件搭建与软件开发',
+                        '获校科技创新大赛一等奖'
+                    ]
+                }]
+            },
+            projects: [{
+                id: 'proj1',
+                title: '智能温控风扇系统',
+                emoji: '🌀',
+                stack: ['STC89C52', 'C语言', 'DS18B20', 'PWM', '电路设计'],
+                desc: [
+                    '独立设计基于单片机的温控风扇，DS18B20 采集温度，PWM 自动调速',
+                    'C 语言实现温度阈值设定与蜂鸣器报警，响应时间 ≤ 2s',
+                    '焊接调试 PCB，在 25–40°C 环境稳定运行 48 小时'
+                ],
+                result: '校科技创新大赛一等奖 · 优秀展示项目'
+            }, {
+                id: 'proj2',
+                title: '抛体运动轨迹模拟器',
+                emoji: '📐',
+                stack: ['Python', 'Matplotlib', '交互式'],
+                desc: [
+                    '开发斜抛运动模拟程序，支持初速度、角度、重力加速度调节',
+                    '实时绘制轨迹、标注最高点与落点，班级演示 10+ 次',
+                    '收集 35+ 同学反馈，3 周迭代 3 个版本，优化交互与可视化'
+                ],
+                result: '物理老师推荐 · 纳入年级教学资源库'
+            }, {
+                id: 'proj3',
+                title: '社区志愿服务数据管理',
+                emoji: '📊',
+                stack: ['Excel VBA', '数据处理', '自动化'],
+                desc: [
+                    '针对社区志愿服务统计混乱，开发 VBA 数据管理工具',
+                    '实现信息录入、时长累加、签到表一键生成',
+                    '试点 3 个月，管理 50+ 志愿者，汇总时间从 2h → 20min'
+                ],
+                result: '社区书面好评 · 效率提升 83%'
+            }],
+            skills: [{
+                category: '编程语言',
+                items: ['Python（熟练）', 'C语言（掌握）', 'Java（基础）']
+            }, {
+                category: '开发工具',
+                items: ['VS Code', 'Keil', 'Multisim', 'Git（基础）']
+            }, {
+                category: '硬件能力',
+                items: ['数字电路', '模拟电路', '电路设计', '焊接调试']
+            }, {
+                category: '数据分析',
+                items: ['Excel 高级功能', 'VBA', '数据透视表', 'VLOOKUP']
+            }, {
+                category: 'AI 与 办公',
+                items: ['通义灵码', '百炼平台', 'PPT 制作', 'AI 工具应用']
+            }, {
+                category: '语言 · 素养',
+                items: ['普通话（母语）', '英语（阅读技术文档）', '物理竞赛基础', '逻辑拆解']
+            }],
+            education: {
+                school: '浙江工业大学',
+                type: '数据科学与大数据技术（准大一）',
+                gpa: '—',
+                rank: '2026 年秋季入学',
+                courses: ['高等数学', '大学物理', '计算机基础', '电子电路原理（自学）'],
+                direction: '新工科 · 数据科学与大数据技术'
+            },
+            awards: [
+                { name: '区级三好学生', year: '2022', desc: '综合学业成绩与在校表现' },
+                { name: '泉州第一中学优秀毕业生', year: '2023', desc: '综合评定年级前 5%' },
+                { name: '全国中学生物理竞赛 市级三等奖', year: '2022', desc: '全市参赛约 2000 人' },
+                { name: '校科技创新大赛 一等奖', year: '2023', desc: '智能温控风扇项目' },
+                { name: '校运会足球赛 团体亚军', year: '2022', desc: '班级足球队主力中场' },
+                { name: '计算机等级考试二级（Python）', year: '备考中', desc: '预计 2026 年内通过' },
+                { name: '英语四级（CET-4）', year: '备考中', desc: '预计 2026 年内通过' }
+            ],
+            certificates: [{
+                name: '人工智能训练师（初级）',
+                org: '阿里巴巴橙点同学',
+                level: '初级',
+                icon: '🧠',
+                badge: '技能认证'
+            }, {
+                name: '人工智能训练师（高级）',
+                org: '阿里巴巴橙点同学',
+                level: '高级',
+                icon: '🧠',
+                badge: '技能认证'
+            }, {
+                name: '基于通义灵码实现高效AI编码实践',
+                org: '阿里云 Apsara Clouder',
+                level: '专项认证',
+                icon: '☁️',
+                badge: 'Clouder'
+            }, {
+                name: '基于百炼平台构建智能体应用',
+                org: '阿里云 Apsara Clouder',
+                level: '专项认证',
+                icon: '🤖',
+                badge: 'Clouder'
+            }],
+            interests: [
+                { icon: '⚽', text: '足球 · 篮球 · 团队协作' },
+                { icon: '♟️', text: '下棋 · 策略思维' },
+                { icon: '📊', text: 'PPT 制作 · 表达展示' },
+                { icon: '🤖', text: 'AI 工具使用 · 探索应用' },
+                { icon: '📚', text: '科技阅读 · 人工智能 · 嵌入式' },
+                { icon: '🧠', text: '自主学习 · 《Python编程快速上手》《电子学基础》' }
+            ]
+        };
+
+        /* ============================================================
+           RENDER HELPERS
+           ============================================================ */
+        function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+
+        function $$(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
+
+        function renderContact() {
+            const row = $('#contactRow');
+            const { phone, email, github, blog } = resume.contact;
+            const emailParts = email.split('@');
+            const emailDisplay = emailParts[0] + ' [at] ' + emailParts[1];
+            let html = `
+            <span>📞 ${phone}</span>
+            <span>
+              ✉️ <span id="emailDisplay">${emailDisplay}</span>
+              <button class="copy-btn" id="copyEmail" aria-label="复制邮箱">📋 复制</button>
+            </span>
+          `;
+            if (github) html += `<span>🐙 <a href="${github}" target="_blank">GitHub</a></span>`;
+            if (blog) html += `<span>🌐 <a href="${blog}" target="_blank">博客</a></span>`;
+            row.innerHTML = html;
+
+            $('#copyEmail')?.addEventListener('click', () => {
+                const full = email;
+                navigator.clipboard?.writeText(full).then(() => {
+                    const btn = $('#copyEmail');
+                    const orig = btn.textContent;
+                    btn.textContent = '✅ 已复制';
+                    setTimeout(() => { btn.textContent = orig; }, 1800);
+                }).catch(() => {
+                    const inp = document.createElement('input');
+                    inp.value = email;
+                    document.body.appendChild(inp);
+                    inp.select();
+                    document.execCommand('copy');
+                    inp.remove();
+                    const btn = $('#copyEmail');
+                    const orig = btn.textContent;
+                    btn.textContent = '✅ 已复制';
+                    setTimeout(() => { btn.textContent = orig; }, 1800);
+                });
+            });
+        }
+
+        function renderHeroTags() {
+            const container = $('#heroTags');
+            container.innerHTML = resume.heroTags.map(t =>
+                `<span class="tag">${t}</span>`
+            ).join('');
+        }
+
+        function renderHighlights() {
+            const grid = $('#highlightsGrid');
+            grid.innerHTML = resume.highlights.map((h, i) => {
+                const parsed = parseHighlightNumber(h.number);
+                return `<div class="highlight-card">
+              <div class="number" data-idx="${i}"
+                   data-prefix="${parsed.prefix}"
+                   data-target="${parsed.target}"
+                   data-suffix="${parsed.suffix}">${parsed.prefix}0${parsed.suffix}</div>
+              <div class="label">${h.label}</div>
+            </div>`;
+            }).join('');
+
+            // 数字滚动动画：进入视口后触发
+            const cards = $$('#highlightsGrid .highlight-card .number');
+            if (cards.length === 0) return;
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        cards.forEach((el, idx) => {
+                            if (reduceMotion) {
+                                const d = el.dataset;
+                                el.textContent = `${d.prefix}${d.target}${d.suffix}`;
+                            } else {
+                                animateHighlightNumber(el, idx * 80);
+                            }
+                        });
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+            const target = $('#highlightsGrid');
+            if (target) observer.observe(target);
+        }
+
+        // 把 "前5%" / "50+" / "83%" 解析为 prefix/target/suffix
+        function parseHighlightNumber(raw) {
+            const m = String(raw).match(/^([^\d]*)(\d+)([^\d]*)$/);
+            if (m) return { prefix: m[1], target: parseInt(m[2], 10), suffix: m[3] };
+            return { prefix: '', target: 0, suffix: String(raw) };
+        }
+
+        // 单个数字滚动（easeOutCubic）
+        function animateHighlightNumber(el, delay) {
+            const d = el.dataset;
+            const target = parseInt(d.target, 10) || 0;
+            const prefix = d.prefix || '';
+            const suffix = d.suffix || '';
+            const duration = 1100;
+            const start = performance.now() + (delay || 0);
+            function tick(now) {
+                if (now < start) { requestAnimationFrame(tick); return; }
+                const t = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - t, 3);
+                const val = Math.round(target * eased);
+                el.textContent = `${prefix}${val}${suffix}`;
+                if (t < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        function renderExperiences() {
+            const tabList = $('#expTabList');
+            const panels = $('#expPanels');
+            const data = resume.experiences;
+            const keys = Object.keys(data).filter(k => data[k] && data[k].length > 0);
+            if (keys.length === 0) {
+                tabList.innerHTML = '';
+                panels.innerHTML =
+                    '<div class="tabs-panel" style="display:block;padding:20px;text-align:center;color:var(--text-muted);">暂无经历数据</div>';
+                return;
+            }
+            const labels = { education: '🎓 教育', campus: '🏫 校园', work: '💼 工作', internship: '🔧 实习' };
+            let tabsHtml = '';
+            let panelsHtml = '';
+            keys.forEach((key, idx) => {
+                const label = labels[key] || key;
+                const items = data[key];
+                const isActive = idx === 0;
+                const selected = isActive ? 'true' : 'false';
+                const hidden = isActive ? 'false' : 'true';
+                tabsHtml += `
+              <button role="tab" id="expTab_${key}" aria-controls="expPanel_${key}"
+                      aria-selected="${selected}" tabindex="${isActive ? '0' : '-1'}">
+                ${label} <span class="tab-badge">${items.length}</span>
+              </button>
+            `;
+                let itemsHtml = items.map(item => `
+              <div class="exp-item">
+                <div class="exp-date">${item.date || ''}</div>
+                <div>
+                  <div class="exp-title">${item.title}</div>
+                  <div class="exp-org">${item.org || ''}</div>
+                  ${item.desc ? `<ul class="exp-desc">${item.desc.map(d => `<li>${d}</li>`).join('')}</ul>` : ''}
+                </div>
+              </div>
+            `).join('');
+                panelsHtml += `
+              <div class="tabs-panel" id="expPanel_${key}" role="tabpanel"
+                   aria-labelledby="expTab_${key}" aria-hidden="${hidden}">
+                ${itemsHtml || '<p class="text-muted">暂无内容</p>'}
+              </div>
+            `;
+            });
+            tabList.innerHTML = tabsHtml;
+            panels.innerHTML = panelsHtml;
+            const tabs = $$('[role="tab"]', tabList);
+            const panelsEl = $$('.tabs-panel', panels);
+            tabs.forEach((tab, idx) => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => { t.setAttribute('aria-selected', 'false');
+                        t.tabIndex = -1; });
+                    tab.setAttribute('aria-selected', 'true');
+                    tab.tabIndex = 0;
+                    panelsEl.forEach((p, pi) => {
+                        p.setAttribute('aria-hidden', pi === idx ? 'false' : 'true');
+                    });
+                });
+                tab.addEventListener('keydown', (e) => {
+                    const dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+                    if (dir === 0) return;
+                    e.preventDefault();
+                    const cur = tabs.indexOf(tab);
+                    const next = (cur + dir + tabs.length) % tabs.length;
+                    tabs[next].click();
+                    tabs[next].focus();
+                });
+            });
+        }
+
+        function renderProjects() {
+            const tabList = $('#projTabList');
+            const panels = $('#projPanels');
+            const data = resume.projects;
+            if (!data || data.length === 0) {
+                tabList.innerHTML = '';
+                panels.innerHTML =
+                    '<div class="tabs-panel" style="display:block;padding:20px;text-align:center;color:var(--text-muted);">暂无项目</div>';
+                return;
+            }
+            let tabsHtml = '';
+            let panelsHtml = '';
+            data.forEach((proj, idx) => {
+                const isActive = idx === 0;
+                const selected = isActive ? 'true' : 'false';
+                const hidden = isActive ? 'false' : 'true';
+                const id = proj.id || 'proj_' + idx;
+                tabsHtml += `
+              <button role="tab" id="projTab_${id}" aria-controls="projPanel_${id}"
+                      aria-selected="${selected}" tabindex="${isActive ? '0' : '-1'}">
+                ${proj.emoji || '📦'} ${proj.title}
+              </button>
+            `;
+                panelsHtml += `
+              <div class="tabs-panel" id="projPanel_${id}" role="tabpanel"
+                   aria-labelledby="projTab_${id}" aria-hidden="${hidden}">
+                <div class="project-grid" style="grid-template-columns:1fr;">
+                  <div class="project-card" style="border-color:var(--primary);">
+                    <div class="proj-title"><span class="emoji">${proj.emoji || '📦'}</span> ${proj.title}</div>
+                    <div class="proj-stack">${proj.stack.map(s => `<span>${s}</span>`).join('')}</div>
+                    <div class="proj-desc">
+                      <ul>${proj.desc.map(d => `<li>${d}</li>`).join('')}</ul>
+                    </div>
+                    <div class="proj-meta">
+                      <span class="tag-result">🏆 ${proj.result || '已完成'}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            });
+            tabList.innerHTML = tabsHtml;
+            panels.innerHTML = panelsHtml;
+            const tabs = $$('[role="tab"]', tabList);
+            const panelsEl = $$('.tabs-panel', panels);
+            tabs.forEach((tab, idx) => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => { t.setAttribute('aria-selected', 'false');
+                        t.tabIndex = -1; });
+                    tab.setAttribute('aria-selected', 'true');
+                    tab.tabIndex = 0;
+                    panelsEl.forEach((p, pi) => {
+                        p.setAttribute('aria-hidden', pi === idx ? 'false' : 'true');
+                    });
+                });
+                tab.addEventListener('keydown', (e) => {
+                    const dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+                    if (dir === 0) return;
+                    e.preventDefault();
+                    const cur = tabs.indexOf(tab);
+                    const next = (cur + dir + tabs.length) % tabs.length;
+                    tabs[next].click();
+                    tabs[next].focus();
+                });
+            });
+
+            // 渲染技术栈 chips + 绑定搜索/筛选
+            initProjectFilter(tabs, panelsEl);
+        }
+
+        // 项目搜索 + 技术栈筛选
+        let projSearchKey = '';
+        let projActiveStack = 'all';
+
+        function initProjectFilter(tabs, panels) {
+            const chipsEl = $('#projChips');
+            const searchInput = $('#projSearch');
+            if (!chipsEl || !searchInput) return;
+
+            // 提取所有技术栈，去重
+            const allStacks = [...new Set(resume.projects.flatMap(p => p.stack))];
+            chipsEl.innerHTML = `<button class="chip active" data-stack="all">全部</button>` +
+                allStacks.map(s => `<button class="chip" data-stack="${s}">${s}</button>`).join('');
+
+            // 搜索框：输入即过滤
+            searchInput.addEventListener('input', (e) => {
+                projSearchKey = e.target.value;
+                applyProjectFilter(tabs, panels);
+            });
+
+            // chips：点击切换
+            chipsEl.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('chip')) return;
+                chipsEl.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                projActiveStack = e.target.dataset.stack;
+                applyProjectFilter(tabs, panels);
+            });
+        }
+
+        function applyProjectFilter(tabs, panels) {
+            const key = projSearchKey.toLowerCase();
+            const noResult = $('#projNoResult');
+            let firstVisibleIdx = -1;
+
+            tabs.forEach((tab, idx) => {
+                const proj = resume.projects[idx];
+                const matchStack = projActiveStack === 'all' || proj.stack.includes(projActiveStack);
+                const matchSearch = !key ||
+                    proj.title.toLowerCase().includes(key) ||
+                    proj.stack.some(s => s.toLowerCase().includes(key)) ||
+                    (proj.desc || []).some(d => d.toLowerCase().includes(key)) ||
+                    (proj.result || '').toLowerCase().includes(key);
+                const visible = matchStack && matchSearch;
+                tab.style.display = visible ? '' : 'none';
+                if (visible && firstVisibleIdx === -1) firstVisibleIdx = idx;
+            });
+
+            // 当前激活的 tab 被过滤掉了：切换到第一个可见项
+            const activeTab = tabs.find(t => t.getAttribute('aria-selected') === 'true');
+            if (activeTab && activeTab.style.display === 'none' && firstVisibleIdx !== -1) {
+                tabs.forEach(t => { t.setAttribute('aria-selected', 'false'); t.tabIndex = -1; });
+                panels.forEach(p => p.setAttribute('aria-hidden', 'true'));
+                tabs[firstVisibleIdx].setAttribute('aria-selected', 'true');
+                tabs[firstVisibleIdx].tabIndex = 0;
+                panels[firstVisibleIdx].setAttribute('aria-hidden', 'false');
+            }
+
+            // 隐藏不可见项目的 panel（保持显示一致）
+            panels.forEach((panel, idx) => {
+                if (tabs[idx].style.display === 'none') {
+                    panel.style.display = 'none';
+                } else {
+                    panel.style.display = '';
+                }
+            });
+
+            if (noResult) noResult.style.display = firstVisibleIdx === -1 ? 'block' : 'none';
+        }
+
+        function renderSkills() {
+            const grid = $('#skillsGrid');
+            grid.innerHTML = resume.skills.map(g => {
+                const itemsHtml = g.items.map(s => {
+                    // 解析 "Python（熟练）" / "C语言(掌握)" 等
+                    const m = String(s).match(/^(.+?)[（(]([^）)]+)[）)]$/);
+                    if (m) {
+                        const name = m[1];
+                        const level = m[2];
+                        const pct = levelToPercent(level);
+                        return `<div class="skill-item">
+                            <div class="skill-row">
+                                <span class="skill-name">${name}</span>
+                                <span class="skill-level">${level}</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" data-percent="${pct}"></div>
+                            </div>
+                        </div>`;
+                    }
+                    // 无括号：仅显示名称，无进度条
+                    return `<div class="skill-item">
+                        <div class="skill-row">
+                            <span class="skill-name">${s}</span>
+                        </div>
+                    </div>`;
+                }).join('');
+                return `<div class="skill-group">
+                    <div class="sg-title">${g.category}</div>
+                    <div class="skill-list">${itemsHtml}</div>
+                </div>`;
+            }).join('');
+
+            // 进入视口后才填充进度条
+            const fills = $$('#skillsGrid .skill-fill');
+            if (fills.length === 0) return;
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        fills.forEach((fill, i) => {
+                            if (reduceMotion) {
+                                fill.style.width = fill.dataset.percent + '%';
+                            } else {
+                                setTimeout(() => {
+                                    fill.style.width = fill.dataset.percent + '%';
+                                }, i * 100);
+                            }
+                        });
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+            if (grid) observer.observe(grid);
+        }
+
+        // 由"熟练/掌握/基础/母语/阅读"等关键字推断百分比
+        function levelToPercent(level) {
+            if (level.includes('母语')) return 100;
+            if (level.includes('熟练')) return 90;
+            if (level.includes('掌握')) return 75;
+            if (level.includes('阅读')) return 70;
+            if (level.includes('基础')) return 50;
+            return 60;
+        }
+
+        function renderEducation() {
+            const block = $('#eduBlock');
+            const e = resume.education;
+            if (!e) { block.innerHTML = '<p class="text-muted">暂无教育信息</p>'; return; }
+            block.innerHTML = `
+            <div class="edu-school">${e.school}</div>
+            <div class="edu-meta">${e.type} · ${e.gpa} · ${e.rank}</div>
+            <div class="edu-detail"><strong>专业方向：</strong>${e.direction}</div>
+            <div class="edu-courses">${e.courses.map(c => `<span>${c}</span>`).join('')}</div>
+          `;
+        }
+
+        function renderAwards() {
+            const list = $('#awardsList');
+            const data = resume.awards;
+            if (!data || data.length === 0) {
+                list.innerHTML = '<p class="text-muted">暂无奖项</p>';
+                return;
+            }
+            list.innerHTML = data.map(a =>
+                `<div class="award-item">
+              <span class="award-name">${a.name}</span>
+              <span class="award-year">${a.year}</span>
+              <span class="award-desc">${a.desc || ''}</span>
+            </div>`
+            ).join('');
+        }
+
+        function renderCertificates() {
+            const grid = $('#certGrid');
+            const data = resume.certificates;
+            if (!data || data.length === 0) {
+                grid.innerHTML = '<p class="text-muted" style="grid-column:1/-1;text-align:center;">暂无证书</p>';
+                return;
+            }
+            grid.innerHTML = data.map(c =>
+                `<div class="cert-card">
+              <div class="cert-icon">${c.icon || '📜'}</div>
+              <div class="cert-name">${c.name}</div>
+              <div class="cert-org">${c.org}</div>
+              <div class="cert-meta">
+                <span class="cert-level">${c.level || ''}</span>
+                <span class="cert-badge">${c.badge || '认证'}</span>
+              </div>
+            </div>`
+            ).join('');
+        }
+
+        function renderInterests() {
+            const grid = $('#interestsGrid');
+            grid.innerHTML = resume.interests.map(item =>
+                `<div class="interest-item">
+              <span class="icon">${item.icon}</span>
+              <span>${item.text}</span>
+            </div>`
+            ).join('');
+        }
+
+        /* ============================================================
+           THEME TOGGLE
+           ============================================================ */
+        function initTheme() {
+            const stored = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = stored || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+            updateThemeIcon(theme);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = $('#themeIcon');
+            if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateThemeIcon(next);
+        }
+
+        /* ============================================================
+           BACK TO TOP
+           ============================================================ */
+        function initBackTop() {
+            const btn = $('#backTop');
+            window.addEventListener('scroll', () => {
+                const y = window.scrollY;
+                btn.classList.toggle('visible', y > 400);
+            });
+            btn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        /* ============================================================
+           NAV ACTIVE
+           ============================================================ */
+        function initNavActive() {
+            const links = $$('[data-nav]');
+            const sections = ['hero', 'highlights', 'experiences', 'projects', 'skills', 'edu-cert', 'interests'];
+            const observer = new IntersectionObserver((entries) => {
+                let activeId = 'hero';
+                for (const e of entries) {
+                    if (e.isIntersecting) {
+                        activeId = e.target.id;
+                        break;
+                    }
+                }
+                links.forEach(link => {
+                    const href = link.getAttribute('href').replace('#', '');
+                    link.classList.toggle('active', href === activeId);
+                });
+            }, { threshold: 0.30, rootMargin: '-20px 0px -20px 0px' });
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) observer.observe(el);
+            });
+        }
+
+        /* ============================================================
+           PRINT
+           ============================================================ */
+        function initPrint() {
+            $('#printBtn').addEventListener('click', () => {
+                window.print();
+            });
+        }
+
+        /* ============================================================
+           DYNAMIC: NAVBAR CLOCK
+           ============================================================ */
+        const SESSION_START = Date.now();
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function initClock() {
+            const clockEl = $('#navClock');
+            if (!clockEl) return;
+            function update() {
+                const now = new Date();
+                const week = ['日','一','二','三','四','五','六'][now.getDay()];
+                clockEl.textContent =
+                    `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} 周${week}`;
+            }
+            update();
+            setInterval(update, 1000);
+        }
+
+        /* ============================================================
+           DYNAMIC: VISIT STATS (localStorage)
+           ============================================================ */
+        const VISIT_KEY = 'resume_visit_stats';
+        function loadVisitStats() {
+            try { return JSON.parse(localStorage.getItem(VISIT_KEY) || '{}'); }
+            catch { return {}; }
+        }
+        function saveVisitStats(s) { localStorage.setItem(VISIT_KEY, JSON.stringify(s)); }
+
+        function bumpVisit() {
+            const s = loadVisitStats();
+            s.count = (s.count || 0) + 1;
+            s.firstVisit = s.firstVisit || Date.now();
+            s.lastVisit = Date.now();
+            saveVisitStats(s);
+            return s;
+        }
+
+        function daysAgo(ts) {
+            if (!ts) return 0;
+            return Math.floor((Date.now() - ts) / 86400000);
+        }
+
+        function initVisitStats() {
+            const wrap = $('#visitStats');
+            if (!wrap) return;
+            const s = bumpVisit();
+
+            function fmtDate(ts) {
+                if (!ts) return '—';
+                const d = new Date(ts);
+                return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+            }
+            function fmtDuration(sec) {
+                const m = Math.floor(sec / 60);
+                const h = Math.floor(m / 60);
+                if (h > 0) return `${h}时${m % 60}分`;
+                return `${m}分${sec % 60}秒`;
+            }
+
+            function render() {
+                const onlineSec = Math.floor((Date.now() - SESSION_START) / 1000);
+                wrap.innerHTML = `
+                    <div class="stat-item">
+                        <div class="stat-value">${s.count}</div>
+                        <div class="stat-label">📊 累计访问次数</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">${daysAgo(s.firstVisit)}</div>
+                        <div class="stat-label">📅 首次到访（天前）</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">${fmtDate(s.lastVisit)}</div>
+                        <div class="stat-label">🕐 上次访问</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="onlineDuration">${fmtDuration(onlineSec)}</div>
+                        <div class="stat-label">⏱ 本次在线时长</div>
+                    </div>
+                `;
+            }
+            render();
+            setInterval(render, 1000);
+        }
+
+        /* ============================================================
+           DYNAMIC: COUNTDOWN TO ENROLLMENT
+           ============================================================ */
+        function initCountdown() {
+            const el = $('#countdown');
+            if (!el) return;
+            // 从 resume.education.rank 推断目标日期；如不能识别则用 2026-09-01
+            const target = new Date('2026-09-01T00:00:00');
+
+            function render() {
+                const now = new Date();
+                const diff = target - now;
+                const days = Math.max(0, Math.floor(diff / 86400000));
+                const hours = Math.max(0, Math.floor((diff % 86400000) / 3600000));
+                const mins = Math.max(0, Math.floor((diff % 3600000) / 60000));
+                const expired = diff <= 0;
+                el.innerHTML = expired ? `
+                    <div class="cd-label">🎓 已入学</div>
+                    <div class="cd-target">📅 2026-09-01 · 浙江工业大学</div>
+                ` : `
+                    <div class="cd-label">距浙江工业大学 2026 秋季入学还有</div>
+                    <div>
+                        <span class="cd-days">${days}</span><span class="cd-unit">天</span>
+                        <span class="cd-days" style="font-size:1.8rem;">${pad(hours)}</span><span class="cd-unit">时</span>
+                        <span class="cd-days" style="font-size:1.8rem;">${pad(mins)}</span><span class="cd-unit">分</span>
+                    </div>
+                    <div class="cd-target">📅 目标日期：2026-09-01（如需修改请告知）</div>
+                `;
+            }
+            render();
+            setInterval(render, 60000);
+        }
+
+        /* ============================================================
+           INIT
+           ============================================================ */
+        document.addEventListener('DOMContentLoaded', () => {
+            renderContact();
+            renderHeroTags();
+            renderHighlights();
+            renderExperiences();
+            renderProjects();
+            renderSkills();
+            renderEducation();
+            renderAwards();
+            renderCertificates();
+            renderInterests();
+
+            initTheme();
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            initBackTop();
+            initNavActive();
+            initPrint();
+            initClock();
+            initVisitStats();
+            initCountdown();
+
+            $$('[data-nav]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(link.getAttribute('href'));
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>动态效果小样演示 · 许旭威</title>
+    <style>
+        /* 复用原站科幻风变量 */
+        :root {
+            --primary: #00d4ff;
+            --primary-glow: rgba(0, 212, 255, 0.35);
+            --secondary: #7c3aed;
+            --secondary-glow: rgba(124, 58, 237, 0.35);
+            --accent: #ec4899;
+            --bg-deep: #080c1a;
+            --bg-card: rgba(22, 32, 64, 0.70);
+            --text-primary: #e8edff;
+            --text-secondary: #9aa8d6;
+            --text-muted: #6a7aaa;
+            --border-glow: rgba(0, 212, 255, 0.20);
+            --radius-sm: 10px;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 32px 24px 64px;
+            background-image:
+                radial-gradient(ellipse at 20% 30%, rgba(0, 212, 255, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, rgba(124, 58, 237, 0.06) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
+
+        .container { max-width: 920px; margin: 0 auto; }
+
+        .banner {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin-bottom: 28px;
+            backdrop-filter: blur(8px);
+        }
+        .banner h1 {
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #fff 30%, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+        .banner p { color: var(--text-secondary); font-size: 0.9rem; }
+        .banner .clock {
+            display: inline-block;
+            margin-top: 8px;
+            font-family: "SF Mono", "Fira Code", monospace;
+            font-size: 0.85rem;
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid var(--border-glow);
+            padding: 4px 14px;
+            border-radius: 40px;
+        }
+        .banner .session {
+            margin-left: 8px;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        section {
+            margin-top: 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
+            padding: 22px 24px;
+            backdrop-filter: blur(8px);
+        }
+        section h2 {
+            font-size: 1.15rem;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        section h2::before {
+            content: '';
+            width: 8px;
+            height: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            box-shadow: 0 0 16px var(--primary-glow);
+        }
+        section h2 .tag-mini {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 40px;
+            background: rgba(0, 212, 255, 0.10);
+            border: 1px solid var(--border-glow);
+            color: var(--text-secondary);
+            margin-left: auto;
+        }
+
+        /* 1. 数字滚动 - 亮点卡片 */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+        }
+        .highlight-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-sm);
+            padding: 18px 14px;
+            text-align: center;
+            transition: all 0.35s ease;
+        }
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 40px var(--primary-glow);
+        }
+        .highlight-card .number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        .highlight-card .label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .replay-btn {
+            margin-top: 14px;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid var(--border-glow);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            transition: all 0.25s ease;
+            font-family: var(--font-sans);
+        }
+        .replay-btn:hover {
+            background: rgba(0, 212, 255, 0.14);
+            box-shadow: 0 0 24px var(--primary-glow);
+        }
+
+        /* 2. 技能进度条 */
+        .skill-list { display: flex; flex-direction: column; gap: 12px; }
+        .skill-item .skill-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            color: var(--text-secondary);
+        }
+        .skill-item .skill-name { color: var(--text-primary); font-weight: 500; }
+        .skill-item .skill-level {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .skill-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 40px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 40px;
+            width: 0;
+            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 0 16px var(--primary-glow);
+        }
+
+        /* 3. 项目搜索 + 筛选 chips */
+        .search-box {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(8, 12, 26, 0.6);
+            border: 1px solid var(--border-glow);
+            border-radius: 40px;
+            padding: 8px 16px;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-family: var(--font-sans);
+            transition: all 0.25s ease;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 24px var(--primary-glow);
+        }
+        .search-input::placeholder { color: var(--text-muted); }
+
+        .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+        .chip {
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.72rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: var(--font-sans);
+        }
+        .chip:hover { border-color: var(--primary); color: var(--text-primary); }
+        .chip.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 0 24px var(--primary-glow);
+        }
+
+        .project-list { display: flex; flex-direction: column; gap: 12px; }
+        .project-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-sm);
+            padding: 14px 18px;
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+        .project-card .proj-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .project-card .proj-stack {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 6px 0;
+        }
+        .project-card .proj-stack span {
+            font-size: 0.65rem;
+            padding: 1px 10px;
+            border-radius: 40px;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid var(--border-glow);
+            color: var(--text-secondary);
+        }
+        .project-card .proj-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+        .project-card.hidden { display: none; }
+
+        .no-result {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        /* 4. 访问统计 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        .stat-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            text-align: center;
+        }
+        .stat-item .stat-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .stat-item .stat-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .stat-actions {
+            margin-top: 14px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .stat-actions button {
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid var(--border-glow);
+            color: var(--text-secondary);
+            padding: 5px 14px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.72rem;
+            font-family: var(--font-sans);
+            transition: all 0.25s ease;
+        }
+        .stat-actions button:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        /* 5. 入学倒计时 */
+        .countdown {
+            text-align: center;
+            padding: 24px 16px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(124, 58, 237, 0.08));
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-sm);
+        }
+        .countdown .cd-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+        .countdown .cd-days {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            text-shadow: 0 0 60px var(--primary-glow);
+        }
+        .countdown .cd-unit {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-left: 6px;
+        }
+        .countdown .cd-target {
+            margin-top: 10px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .note {
+            margin-top: 32px;
+            padding: 16px 20px;
+            background: rgba(124, 58, 237, 0.06);
+            border: 1px dashed rgba(124, 58, 237, 0.30);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        .note strong { color: var(--text-primary); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            <h1>动态效果小样演示</h1>
+            <p>下面 5 个区块展示我提议的部分动态化效果。所有数据均为示例，原 [index.html](file:///c:/Users/xuxuw/Documents/个人网站/index.html) 未被改动。</p>
+            <span class="clock" id="clock">--:--:--</span>
+            <span class="session" id="session">本次在线 00:00</span>
+        </div>
+
+        <!-- 1. 数字滚动 -->
+        <section>
+            <h2>① 数字滚动动画 <span class="tag-mini">亮点卡片</span></h2>
+            <div class="highlights-grid" id="highlightsGrid"></div>
+            <button class="replay-btn" id="replayBtn">↻ 重新播放动画</button>
+        </section>
+
+        <!-- 2. 技能进度条 -->
+        <section>
+            <h2>② 技能熟练度进度条 <span class="tag-mini">基于括号内关键字</span></h2>
+            <div class="skill-list" id="skillList"></div>
+        </section>
+
+        <!-- 3. 项目搜索 + 筛选 -->
+        <section>
+            <h2>③ 实时搜索 + 技术栈筛选 <span class="tag-mini">输入即时过滤</span></h2>
+            <div class="search-box">
+                <input class="search-input" id="searchInput" placeholder="🔍 搜索项目标题 / 技术栈 / 描述..." />
+                <div class="chips" id="chips"></div>
+            </div>
+            <div class="project-list" id="projectList"></div>
+            <div class="no-result" id="noResult">😕 没有匹配的项目</div>
+        </section>
+
+        <!-- 4. 访问统计 -->
+        <section>
+            <h2>④ 访问统计 <span class="tag-mini">localStorage 持久化</span></h2>
+            <div class="stats-grid" id="statsGrid"></div>
+            <div class="stat-actions">
+                <button id="resetStats">↻ 重置访问统计</button>
+            </div>
+        </section>
+
+        <!-- 5. 入学倒计时 -->
+        <section>
+            <h2>⑤ 入学倒计时 <span class="tag-mini">距 2026-09-01</span></h2>
+            <div class="countdown" id="countdown"></div>
+        </section>
+
+        <div class="note">
+            <strong>说明：</strong>这个演示文件是独立的小样，仅用于预览效果。所有数据都是示例数据，未读取你的真实简历。如果满意，我会按这种风格把同样的能力嵌入到 <strong>index.html</strong> 里，并保留你现有的全部内容和样式。
+        </div>
+    </div>
+
+    <script>
+        /* ===== 1. 实时时钟 + 在线时长 ===== */
+        const startTime = Date.now();
+        function pad(n) { return String(n).padStart(2, '0'); }
+        function updateClock() {
+            const now = new Date();
+            const week = ['周日','周一','周二','周三','周四','周五','周六'][now.getDay()];
+            document.getElementById('clock').textContent =
+                `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} ${week}`;
+            const diff = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById('session').textContent =
+                `本次在线 ${pad(Math.floor(diff/60))}:${pad(diff%60)}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        /* ===== 2. 数字滚动动画 ===== */
+        const highlights = [
+            { target: 3, suffix: '', label: '完整项目落地' },
+            { target: 50, suffix: '+', label: '社区志愿者管理' },
+            { target: 10, suffix: '+', label: '课堂演示应用' },
+            { target: 83, suffix: '%', label: '效率提升' },
+            { target: 5, suffix: '%', prefix: '前', label: '年级综合排名' }
+        ];
+
+        function renderHighlights() {
+            const grid = document.getElementById('highlightsGrid');
+            grid.innerHTML = highlights.map((h, i) =>
+                `<div class="highlight-card">
+                    <div class="number" data-idx="${i}">${h.prefix || ''}0${h.suffix || ''}</div>
+                    <div class="label">${h.label}</div>
+                </div>`
+            ).join('');
+        }
+
+        function animateNumbers() {
+            document.querySelectorAll('.highlight-card .number').forEach((el, i) => {
+                const h = highlights[i];
+                const duration = 1200;
+                const start = performance.now();
+                function tick(now) {
+                    const t = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+                    const val = Math.round(h.target * eased);
+                    el.textContent = `${h.prefix || ''}${val}${h.suffix || ''}`;
+                    if (t < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+            });
+        }
+
+        renderHighlights();
+        setTimeout(animateNumbers, 300);
+
+        document.getElementById('replayBtn').addEventListener('click', () => {
+            document.querySelectorAll('.highlight-card .number').forEach((el, i) => {
+                const h = highlights[i];
+                el.textContent = `${h.prefix || ''}0${h.suffix || ''}`;
+            });
+            setTimeout(animateNumbers, 50);
+        });
+
+        /* ===== 3. 技能进度条 ===== */
+        const skills = [
+            { name: 'Python', level: '熟练' },
+            { name: 'C 语言', level: '掌握' },
+            { name: 'Java', level: '基础' },
+            { name: '电路设计', level: '掌握' },
+            { name: 'Excel VBA', level: '熟练' },
+            { name: 'Git', level: '基础' }
+        ];
+
+        function levelToPercent(level) {
+            if (level.includes('熟练')) return 90;
+            if (level.includes('掌握')) return 75;
+            if (level.includes('基础')) return 50;
+            return 60;
+        }
+
+        const skillList = document.getElementById('skillList');
+        skillList.innerHTML = skills.map(s => `
+            <div class="skill-item">
+                <div class="skill-row">
+                    <span class="skill-name">${s.name}</span>
+                    <span class="skill-level">${s.level}</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-fill" data-percent="${levelToPercent(s.level)}"></div>
+                </div>
+            </div>
+        `).join('');
+
+        // 进入视口后才填充
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    document.querySelectorAll('.skill-fill').forEach((fill, i) => {
+                        setTimeout(() => {
+                            fill.style.width = fill.dataset.percent + '%';
+                        }, i * 100);
+                    });
+                    skillObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        skillObserver.observe(skillList);
+
+        /* ===== 4. 项目搜索 + 筛选 ===== */
+        const projects = [
+            { title: '智能温控风扇系统', emoji: '🌀', stack: ['STC89C52','C语言','DS18B20','PWM','电路设计'],
+              desc: '基于单片机的温控风扇，DS18B20 采集温度，PWM 自动调速' },
+            { title: '抛体运动轨迹模拟器', emoji: '📐', stack: ['Python','Matplotlib','交互式'],
+              desc: '斜抛运动模拟程序，支持初速度、角度、重力加速度调节' },
+            { title: '社区志愿服务数据管理', emoji: '📊', stack: ['Excel VBA','数据处理','自动化'],
+              desc: 'VBA 数据管理工具，实现信息录入、时长累加、签到表生成' }
+        ];
+
+        // 提取所有技术栈
+        const allStacks = [...new Set(projects.flatMap(p => p.stack))];
+
+        function renderChips() {
+            const chips = document.getElementById('chips');
+            chips.innerHTML = `<button class="chip active" data-stack="all">全部</button>` +
+                allStacks.map(s => `<button class="chip" data-stack="${s}">${s}</button>`).join('');
+        }
+
+        let activeStack = 'all';
+        let searchKey = '';
+
+        function renderProjects() {
+            const list = document.getElementById('projectList');
+            const filtered = projects.filter(p => {
+                const matchStack = activeStack === 'all' || p.stack.includes(activeStack);
+                const key = searchKey.toLowerCase();
+                const matchSearch = !key ||
+                    p.title.toLowerCase().includes(key) ||
+                    p.stack.some(s => s.toLowerCase().includes(key)) ||
+                    p.desc.toLowerCase().includes(key);
+                return matchStack && matchSearch;
+            });
+            list.innerHTML = filtered.map(p => `
+                <div class="project-card">
+                    <div class="proj-title">${p.emoji} ${p.title}</div>
+                    <div class="proj-stack">${p.stack.map(s => `<span>${s}</span>`).join('')}</div>
+                    <div class="proj-desc">${p.desc}</div>
+                </div>
+            `).join('');
+            document.getElementById('noResult').style.display = filtered.length === 0 ? 'block' : 'none';
+        }
+
+        renderChips();
+        renderProjects();
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchKey = e.target.value;
+            renderProjects();
+        });
+
+        document.getElementById('chips').addEventListener('click', (e) => {
+            if (e.target.classList.contains('chip')) {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                activeStack = e.target.dataset.stack;
+                renderProjects();
+            }
+        });
+
+        /* ===== 5. 访问统计 ===== */
+        const STATS_KEY = 'demo_visit_stats';
+        function loadStats() {
+            try { return JSON.parse(localStorage.getItem(STATS_KEY) || '{}'); }
+            catch { return {}; }
+        }
+        function saveStats(s) { localStorage.setItem(STATS_KEY, JSON.stringify(s)); }
+
+        function bumpVisit() {
+            const s = loadStats();
+            s.count = (s.count || 0) + 1;
+            s.firstVisit = s.firstVisit || Date.now();
+            s.lastVisit = Date.now();
+            saveStats(s);
+            return s;
+        }
+
+        function daysAgo(ts) {
+            if (!ts) return 0;
+            return Math.floor((Date.now() - ts) / 86400000);
+        }
+
+        function renderStats() {
+            const s = loadStats();
+            const grid = document.getElementById('statsGrid');
+            grid.innerHTML = `
+                <div class="stat-item">
+                    <div class="stat-value">${s.count || 0}</div>
+                    <div class="stat-label">总访问次数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${daysAgo(s.firstVisit)}</div>
+                    <div class="stat-label">首次到访（天前）</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${s.lastVisit ? new Date(s.lastVisit).toLocaleDateString('zh-CN') : '—'}</div>
+                    <div class="stat-label">上次访问</div>
+                </div>
+            `;
+        }
+
+        bumpVisit();
+        renderStats();
+
+        document.getElementById('resetStats').addEventListener('click', () => {
+            if (confirm('确定重置访问统计吗？此操作不可撤销。')) {
+                localStorage.removeItem(STATS_KEY);
+                bumpVisit();
+                renderStats();
+            }
+        });
+
+        /* ===== 6. 入学倒计时 ===== */
+        function renderCountdown() {
+            const target = new Date('2026-09-01T00:00:00');
+            const now = new Date();
+            const diff = target - now;
+            const days = Math.max(0, Math.floor(diff / 86400000));
+            const hours = Math.max(0, Math.floor((diff % 86400000) / 3600000));
+            const el = document.getElementById('countdown');
+            el.innerHTML = `
+                <div class="cd-label">距浙江工业大学 2026 秋季入学还有</div>
+                <div>
+                    <span class="cd-days">${days}</span><span class="cd-unit">天</span>
+                    <span class="cd-days" style="font-size:1.8rem;">${pad(hours)}</span><span class="cd-unit">小时</span>
+                </div>
+                <div class="cd-target">📅 目标日期：2026-09-01（开学日，如需修改请告知）</div>
+            `;
+        }
+        renderCountdown();
+        setInterval(renderCountdown, 60000);
+    </script>
+</body>
+</html>
